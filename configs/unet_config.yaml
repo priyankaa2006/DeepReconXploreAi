@@ -1,0 +1,39 @@
+model:
+  name: "unet"
+  n_channels: 1
+  n_classes: 1
+  bilinear: true
+
+training:
+  num_epochs: 200
+  batch_size: 16
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  optimizer: "adam"
+  loss_function: "combined"
+  scheduler: "cosine"
+  scheduler_params:
+    T_max: 200
+    eta_min: 0.00001
+
+data:
+  dataset_type: "image_reconstruction"
+  data_dir: "data/images"
+  train_split: 0.8
+  val_split: 0.15
+  test_split: 0.05
+  image_size: 256
+  num_workers: 4
+  pin_memory: true
+  augmentation: true
+  noise_level: 0.2
+
+experiment:
+  name: "unet_super_resolution"
+  log_dir: "logs/unet"
+  checkpoint_dir: "checkpoints/unet"
+  save_every: 20
+  log_images_every: 10
+  device: "auto"
+  seed: 42
+  resume_from: null
